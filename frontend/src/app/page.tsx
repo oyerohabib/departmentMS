@@ -4,48 +4,10 @@ import UniOfIbadan from "@/assets/images/university-of-ibadan.png";
 
 export default function Home() {
   return (
-    <div className="flex flex-col min-h-screen bg-white">
-      <header className="border-b border-gray-100">
-        <div className="container mx-auto px-4 py-5 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-          <div className="flex items-center gap-3">
-            <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-blue-600 text-white font-semibold">
-              CC
-            </span>
-            <div>
-              <p className="text-lg font-semibold text-gray-900">
-                Campus connect
-              </p>
-              <p className="text-sm text-gray-500">
-                Collaborative learning for modern campuses
-              </p>
-            </div>
-          </div>
-          <nav className="flex flex-wrap items-center gap-4 text-sm font-medium text-gray-600">
-            <a href="#features" className="hover:text-blue-600">
-              Features
-            </a>
-            <a href="#how-it-works" className="hover:text-blue-600">
-              How it works
-            </a>
-            <a href="#testimonials" className="hover:text-blue-600">
-              Stories
-            </a>
-            <Link href="/login" className="hover:text-blue-600">
-              Sign in
-            </Link>
-            <Link
-              href="/register"
-              className="rounded-full bg-blue-600 px-4 py-2 text-white hover:bg-blue-700 transition"
-            >
-              Get started
-            </Link>
-          </nav>
-        </div>
-      </header>
-
+    <div className="flex flex-col bg-white">
       {/* Hero Section */}
       <section className="bg-gradient-to-br from-blue-600 via-blue-700 to-blue-900 text-white py-20">
-        <div className="container mx-auto px-4">
+        <div className="mx-auto w-full max-w-6xl px-4">
           <div className="flex flex-col gap-12 md:flex-row md:items-center">
             <div className="md:w-1/2">
               <span className="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-sm font-semibold text-white">
@@ -116,7 +78,7 @@ export default function Home() {
 
       {/* Features Section */}
       <section id="features" className="py-16 bg-gray-50">
-        <div className="container mx-auto px-4">
+        <div className="mx-auto w-full max-w-6xl px-4">
           <h2 className="text-3xl font-bold text-center mb-12">
             Why Choose Campus connect?
           </h2>
@@ -202,7 +164,7 @@ export default function Home() {
         id="how-it-works"
         className="py-16 bg-white border-t border-gray-100"
       >
-        <div className="container mx-auto px-4">
+        <div className="mx-auto w-full max-w-6xl px-4">
           <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
             <div>
               <h2 className="text-3xl font-bold mb-6">
@@ -274,7 +236,7 @@ export default function Home() {
       </section>
 
       <section id="testimonials" className="py-16 bg-gray-50">
-        <div className="container mx-auto px-4">
+        <div className="mx-auto w-full max-w-6xl px-4">
           <div className="text-center mb-12">
             <p className="text-sm font-semibold uppercase tracking-wide text-blue-600">
               Trusted by campus teams
@@ -321,7 +283,7 @@ export default function Home() {
 
       {/* Call to Action */}
       <section className="py-16 bg-blue-600 text-white">
-        <div className="container mx-auto px-4 text-center">
+        <div className="mx-auto w-full max-w-6xl px-4 text-center">
           <h2 className="text-3xl font-bold mb-6">
             Ready to enhance your educational journey?
           </h2>

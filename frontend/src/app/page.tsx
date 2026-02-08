@@ -4,50 +4,81 @@ import UniOfIbadan from "@/assets/images/university-of-ibadan.png";
 
 export default function Home() {
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col bg-white">
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-20">
-        <div className="container mx-auto px-4">
-          <div className="flex flex-col md:flex-row items-center">
-            <div className="md:w-1/2 mb-10 md:mb-0">
-              <h1 className="text-4xl md:text-6xl font-bold mb-6 max-w-3xl">
-                Transform Your Educational Experience
+      <section className="bg-gradient-to-br from-blue-600 via-blue-700 to-blue-900 text-white py-20">
+        <div className="mx-auto w-full max-w-6xl px-4">
+          <div className="flex flex-col gap-12 md:flex-row md:items-center">
+            <div className="md:w-1/2">
+              <span className="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-sm font-semibold text-white">
+                Built for students, powered for lecturers
+              </span>
+              <h1 className="text-4xl md:text-6xl font-bold mt-6 mb-6 max-w-3xl">
+                Transform the way your campus communicates, teaches, and learns.
               </h1>
-              <p className="text-xl mb-8 max-w-xl">
-                Connect, learn, and grow with Campus connect - the ultimate
-                platform for students and lecturers.
+              <p className="text-lg md:text-xl mb-8 max-w-xl text-blue-100">
+                Campus connect brings every course, announcement, and resource
+                into one intuitive workspace—so you can focus on learning, not
+                logistics.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link
                   href="/register"
-                  className="btn-primary text-center px-6 py-3 rounded-md bg-white text-blue-600 hover:bg-gray-200 transition duration-200"
+                  className="btn-primary text-center px-6 py-3 rounded-md bg-white text-blue-700 hover:bg-blue-50 transition duration-200"
                 >
                   Get Started
                 </Link>
                 <Link
-                  href="/"
-                  className="text-white btn text-center border border-white px-6 py-3 rounded-md transition duration-200"
+                  href="/login"
+                  className="text-white btn text-center border border-white/60 px-6 py-3 rounded-md transition duration-200 hover:border-white hover:bg-white/10"
                 >
-                  Learn More
+                  Explore the dashboard
                 </Link>
+              </div>
+              <div className="mt-10 grid grid-cols-2 gap-6 text-sm text-blue-100">
+                <div>
+                  <p className="text-2xl font-semibold text-white">98%</p>
+                  <p>On-time resource delivery</p>
+                </div>
+                <div>
+                  <p className="text-2xl font-semibold text-white">45k+</p>
+                  <p>Learning resources shared</p>
+                </div>
               </div>
             </div>
             <div className="md:w-1/2">
-              <Image
-                src={UniOfIbadan}
-                alt="Education Platform"
-                width={600}
-                height={400}
-                className="rounded-lg shadow-lg"
-              />
+              <div className="rounded-2xl bg-white/10 p-4 shadow-2xl">
+                <Image
+                  src={UniOfIbadan}
+                  alt="Education Platform"
+                  width={600}
+                  height={400}
+                  className="rounded-xl shadow-lg"
+                  priority
+                />
+              </div>
+              <div className="mt-6 grid grid-cols-2 gap-4 text-sm text-blue-100">
+                <div className="rounded-xl bg-white/10 p-4">
+                  <p className="text-white font-semibold">Live Announcements</p>
+                  <p className="mt-2">
+                    Push critical updates to every class instantly.
+                  </p>
+                </div>
+                <div className="rounded-xl bg-white/10 p-4">
+                  <p className="text-white font-semibold">Smart Schedules</p>
+                  <p className="mt-2">
+                    Keep lectures and deadlines crystal clear.
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
       {/* Features Section */}
-      <section className="py-16 bg-gray-50">
-        <div className="container mx-auto px-4">
+      <section id="features" className="py-16 bg-gray-50">
+        <div className="mx-auto w-full max-w-6xl px-4">
           <h2 className="text-3xl font-bold text-center mb-12">
             Why Choose Campus connect?
           </h2>
@@ -129,9 +160,130 @@ export default function Home() {
         </div>
       </section>
 
+      <section
+        id="how-it-works"
+        className="py-16 bg-white border-t border-gray-100"
+      >
+        <div className="mx-auto w-full max-w-6xl px-4">
+          <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
+            <div>
+              <h2 className="text-3xl font-bold mb-6">
+                Everything your campus needs, in three simple steps
+              </h2>
+              <p className="text-gray-600 mb-10 max-w-2xl">
+                Launch your digital campus in minutes. Import courses, invite
+                your community, and stay connected with a unified hub for
+                lectures, resources, and feedback.
+              </p>
+              <div className="space-y-6">
+                {[
+                  {
+                    title: "Create your departments",
+                    description:
+                      "Set up departments, courses, and shared resource libraries in one workspace.",
+                  },
+                  {
+                    title: "Invite students and lecturers",
+                    description:
+                      "Assign roles and permissions so every user sees exactly what they need.",
+                  },
+                  {
+                    title: "Track engagement",
+                    description:
+                      "Monitor announcements, uploads, and participation from a single dashboard.",
+                  },
+                ].map((item, index) => (
+                  <div key={item.title} className="flex gap-4">
+                    <span className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-100 text-blue-700 font-semibold">
+                      {index + 1}
+                    </span>
+                    <div>
+                      <h3 className="text-lg font-semibold text-gray-900">
+                        {item.title}
+                      </h3>
+                      <p className="text-gray-600">{item.description}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="rounded-2xl border border-blue-100 bg-blue-50 p-8">
+              <h3 className="text-xl font-semibold text-blue-900 mb-4">
+                Built-in productivity boosters
+              </h3>
+              <ul className="space-y-4 text-gray-700">
+                {[
+                  "Automated reminders for assignments and deadlines",
+                  "Secure file storage for lecture notes and media",
+                  "Insights dashboard for participation trends",
+                  "Mobile-friendly access on any device",
+                ].map((item) => (
+                  <li key={item} className="flex items-start gap-3">
+                    <span className="mt-1 h-2.5 w-2.5 rounded-full bg-blue-600" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+              <Link
+                href="/register"
+                className="mt-8 inline-flex items-center justify-center rounded-md bg-blue-600 px-5 py-3 text-white hover:bg-blue-700 transition"
+              >
+                Start building your campus
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="testimonials" className="py-16 bg-gray-50">
+        <div className="mx-auto w-full max-w-6xl px-4">
+          <div className="text-center mb-12">
+            <p className="text-sm font-semibold uppercase tracking-wide text-blue-600">
+              Trusted by campus teams
+            </p>
+            <h2 className="text-3xl font-bold mt-2">
+              Real stories from Campus connect users
+            </h2>
+          </div>
+          <div className="grid gap-6 md:grid-cols-3">
+            {[
+              {
+                quote:
+                  "Our departments now share resources in minutes, and students never miss a deadline.",
+                name: "Dr. Adeola Ajayi",
+                role: "Head of Department",
+              },
+              {
+                quote:
+                  "The role-based dashboard makes it easy to track lectures, files, and announcements in one place.",
+                name: "Ola Yusuf",
+                role: "Computer Science Student",
+              },
+              {
+                quote:
+                  "Switching to Campus connect reduced admin time and kept everyone aligned.",
+                name: "Chioma Nwankwo",
+                role: "Faculty Administrator",
+              },
+            ].map((item) => (
+              <div
+                key={item.name}
+                className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm"
+              >
+                <p className="text-gray-700">“{item.quote}”</p>
+                <div className="mt-6">
+                  <p className="font-semibold text-gray-900">{item.name}</p>
+                  <p className="text-sm text-gray-500">{item.role}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Call to Action */}
       <section className="py-16 bg-blue-600 text-white">
-        <div className="container mx-auto px-4 text-center">
+        <div className="mx-auto w-full max-w-6xl px-4 text-center">
           <h2 className="text-3xl font-bold mb-6">
             Ready to enhance your educational journey?
           </h2>

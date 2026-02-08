@@ -299,40 +299,6 @@ export default function Home() {
           </Link>
         </div>
       </section>
-
-      <footer className="border-t border-gray-100 bg-white py-10">
-        <div className="container mx-auto px-4">
-          <div className="flex flex-col gap-8 md:flex-row md:items-center md:justify-between">
-            <div>
-              <p className="text-lg font-semibold text-gray-900">
-                Campus connect
-              </p>
-              <p className="text-sm text-gray-500 mt-2 max-w-sm">
-                Empowering departments to collaborate with students in a secure,
-                streamlined learning environment.
-              </p>
-            </div>
-            <div className="flex flex-wrap gap-6 text-sm text-gray-600">
-              <a href="#features" className="hover:text-blue-600">
-                Features
-              </a>
-              <a href="#how-it-works" className="hover:text-blue-600">
-                How it works
-              </a>
-              <a href="#testimonials" className="hover:text-blue-600">
-                Stories
-              </a>
-              <Link href="/register" className="hover:text-blue-600">
-                Get started
-              </Link>
-            </div>
-          </div>
-          <div className="mt-8 flex flex-col gap-2 text-xs text-gray-400 md:flex-row md:justify-between">
-            <p>© 2024 Campus connect. All rights reserved.</p>
-            <p>Built to keep your campus aligned.</p>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 }

@@ -36,18 +36,16 @@ Artifacts: `frontend/summary.json`, `frontend/auth-summary.json`
 
 | Measurement | Smoke (1–2 VUs) | Normal (5–10 VUs) | Elevated (≤25 VUs) | After (GraphQL) |
 |-------------|-----------------|-------------------|--------------------|-----------------|
-| http_req_duration p50 (ms) | 1.74 | 1.82\* | 1.14 | |
-| http_req_duration p95 (ms) | 70.86 | 4.17\* | 69.77 | |
-| http_req_duration p99 (ms) | 73.51 | 5.19\* | 72.30 | |
-| http_reqs | 320 | 440\* | 5139 | |
-| Error rate | **0%** | **100%\*** (all login `404`) | **10.6%** (545× status `0`, 4594× `200`) | |
-
-\*Normal profile ran while the API still returned `User not found` (404) for fixture logins — treat **smoke** (and elevated successes) as the latency reference, not normal.
+| http_req_duration p50 (ms) | 1.74 | 1.26 | 1.14 | |
+| http_req_duration p95 (ms) | 70.86 | 70.78 | 69.77 | |
+| http_req_duration p99 (ms) | 73.51 | 76.83 | 72.30 | |
+| http_reqs | 320 | 3104 | 5139 | |
+| Error rate | **0%** | **0%** | **10.6%** (545× status `0`, 4594× `200`) | |
 
 Artifacts: `backend/k6-*-summary.json` (raw multi‑MB dumps gitignored)
 
 ## Interpretation notes
 
 - GraphQL is not automatically faster; watch resolver N+1 and payload size.
-- Re-run `test:load:normal` after GraphQL with a seeded DB for a fair mid-load comparison.
+- Elevated profile shows some connection drops under higher concurrency — useful guardrail for post-GraphQL comparison.
 - Keep DB fixtures, hardware, and warm/cold conditions consistent across runs.

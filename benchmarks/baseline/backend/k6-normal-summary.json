@@ -1,22 +1,22 @@
 {
   "profile": "normal",
-  "generatedAt": "2026-11-24T21:31:00.694Z",
-  "http_reqs": 440,
-  "failed_requests": 440,
-  "error_rate": 1,
+  "generatedAt": "2026-11-24T21:50:50.970Z",
+  "http_reqs": 3104,
+  "failed_requests": 0,
+  "error_rate": 0,
   "checks": {
-    "pass": 0,
-    "fail": 880
+    "pass": 3880,
+    "fail": 0
   },
   "vus_max": 10,
   "status_counts": {
-    "404": 440
+    "200": 3104
   },
   "http_req_duration_ms": {
-    "avg": 2.1,
-    "p50": 1.82,
-    "p95": 4.17,
-    "p99": 5.19,
-    "max": 5.72
+    "avg": 18.52,
+    "p50": 1.26,
+    "p95": 70.78,
+    "p99": 76.83,
+    "max": 137.4
   }
 }

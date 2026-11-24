@@ -16,7 +16,7 @@
 | k6 | v2.4.0 |
 | Playwright | 1.65.1 |
 | Lighthouse | 12.8.2 |
-| Notes | CORS updated to allow `127.0.0.1`. Warm local stack; smoke k6 is the clean latency baseline. |
+| Notes | CORS allows `127.0.0.1`. API uses seeded `departmentms_test`. k6 smoke/normal/elevated captured with that setup (normal re-run after seed alignment). |
 
 ## Capture commands used
 

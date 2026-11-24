@@ -13,15 +13,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importDefault(require("mongoose"));
-const dotenv_1 = __importDefault(require("dotenv"));
 const User_1 = require("../models/User");
 const Course_1 = require("../models/Course");
 const Material_1 = require("../models/Material");
-dotenv_1.default.config();
+const mongoUri_1 = require("./mongoUri");
 const clearDatabase = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
+        const uri = (0, mongoUri_1.getMongoUri)();
         console.log("Connecting to MongoDB...");
-        yield mongoose_1.default.connect(process.env.MONGODB_URI);
+        yield mongoose_1.default.connect(uri);
         console.log("Connected to MongoDB");
         console.log("Clearing Users...");
         yield User_1.User.deleteMany({});
@@ -36,6 +36,7 @@ const clearDatabase = () => __awaiter(void 0, void 0, void 0, function* () {
     }
     catch (error) {
         console.error("Error clearing database:", error);
+        process.exitCode = 1;
     }
     finally {
         yield mongoose_1.default.disconnect();

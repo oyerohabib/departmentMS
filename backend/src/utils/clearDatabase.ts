@@ -26,6 +26,7 @@ const clearDatabase = async () => {
     console.log("Database cleared successfully.");
   } catch (error) {
     console.error("Error clearing database:", error);
+    process.exitCode = 1;
   } finally {
     await mongoose.disconnect();
     console.log("Disconnected from MongoDB");

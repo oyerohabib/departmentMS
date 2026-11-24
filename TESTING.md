@@ -41,7 +41,7 @@ In `backend/.env`:
 MONGODB_URI=mongodb://127.0.0.1:27017/departmentms
 MONGODB_URI_TEST=mongodb://127.0.0.1:27017/departmentms_test
 JWT_SECRET=local-dev-secret
-FRONTEND_URL=http://localhost:3000
+FRONTEND_URL=http://127.0.0.1:3000
 ```
 
 Reset fixtures (admin + lecturers + students + courses):
@@ -49,6 +49,13 @@ Reset fixtures (admin + lecturers + students + courses):
 ```bash
 cd backend
 USE_TEST_DB=1 npm run prepare-test-db
+```
+
+**Important:** the running API must use the same DB you seeded. Either start the backend with the test URI, or point `MONGODB_URI` at `departmentms_test` while benchmarking:
+
+```bash
+# while starting the API
+MONGODB_URI=mongodb://127.0.0.1:27017/departmentms_test npm start
 ```
 
 Known accounts (password `password`):

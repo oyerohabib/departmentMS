@@ -1,0 +1,23 @@
+{
+  "profile": "elevated",
+  "generatedAt": "2026-11-24T21:31:00.800Z",
+  "http_reqs": 5139,
+  "failed_requests": 545,
+  "error_rate": 0.1061,
+  "checks": {
+    "pass": 5741,
+    "fail": 1090
+  },
+  "vus_max": 25,
+  "status_counts": {
+    "0": 545,
+    "200": 4594
+  },
+  "http_req_duration_ms": {
+    "avg": 16.39,
+    "p50": 1.14,
+    "p95": 69.77,
+    "p99": 72.3,
+    "max": 115.18
+  }
+}

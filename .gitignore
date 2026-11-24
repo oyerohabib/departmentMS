@@ -21,6 +21,13 @@ test-results/
 playwright-report/
 benchmarks/baseline/functional/playwright-report/
 benchmarks/baseline/frontend/*.report.html
+benchmarks/baseline/frontend/*.report.json
 benchmarks/baseline/frontend/lhci/
+# k6 --out json dumps every metric point (multi‑MB); keep *-summary.json only
+benchmarks/baseline/backend/k6-smoke.json
+benchmarks/baseline/backend/k6-normal.json
+benchmarks/baseline/backend/k6-elevated.json
 benchmarks/**/*.mp4
 benchmarks/**/trace.zip
+backend/uploads/*
+!backend/uploads/.gitkeep

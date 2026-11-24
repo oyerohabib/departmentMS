@@ -1,0 +1,22 @@
+{
+  "profile": "normal",
+  "generatedAt": "2026-11-24T21:31:00.694Z",
+  "http_reqs": 440,
+  "failed_requests": 440,
+  "error_rate": 1,
+  "checks": {
+    "pass": 0,
+    "fail": 880
+  },
+  "vus_max": 10,
+  "status_counts": {
+    "404": 440
+  },
+  "http_req_duration_ms": {
+    "avg": 2.1,
+    "p50": 1.82,
+    "p95": 4.17,
+    "p99": 5.19,
+    "max": 5.72
+  }
+}

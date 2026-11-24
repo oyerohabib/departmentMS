@@ -284,6 +284,7 @@ const seedDatabase = async () => {
     console.log("Database seeded successfully");
   } catch (error) {
     console.error("Error seeding database:", error);
+    process.exitCode = 1;
   } finally {
     await mongoose.disconnect();
     console.log("Disconnected from MongoDB");

@@ -17,19 +17,22 @@ app.get("/", (_req, res) => {
   });
 });
 
-// Middleware
-const allowedOrigins = [
+// Middleware — allow localhost and 127.0.0.1 (Playwright uses 127.0.0.1)
+const allowedOrigins: (string | RegExp)[] = [
   /^http:\/\/localhost:\d+$/,
+  /^http:\/\/127\.0\.0\.1:\d+$/,
   process.env.FRONTEND_URL || "https://department-ms.vercel.app",
-];
+].filter(Boolean);
 
 app.use(
   cors({
-    origin: (origin: string, callback: (arg0: Error, arg1: boolean) => any) => {
+    origin: (
+      origin: string | undefined,
+      callback: (err: Error | null, allow?: boolean) => void
+    ) => {
       // Allow requests with no origin (like mobile apps or curl requests)
       if (!origin) return callback(null, true);
 
-      // Check if the origin is allowed
       const isAllowed = allowedOrigins.some((allowedOrigin) =>
         allowedOrigin instanceof RegExp
           ? allowedOrigin.test(origin)
@@ -38,9 +41,9 @@ app.use(
 
       if (isAllowed) {
         return callback(null, true);
-      } else {
-        return callback(new Error("CORS not allowed"), false);
       }
+      // Do not pass an Error here — that becomes a 500; deny cleanly instead
+      return callback(null, false);
     },
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],

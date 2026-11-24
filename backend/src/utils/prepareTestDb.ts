@@ -12,6 +12,10 @@
  */
 import { spawnSync } from "child_process";
 import path from "path";
+import dotenv from "dotenv";
+
+// Load backend/.env before reading MONGODB_URI_TEST (shell exports are not required)
+dotenv.config({ path: path.join(__dirname, "../../.env") });
 
 const env = {
   ...process.env,
@@ -21,7 +25,7 @@ const env = {
 
 if (!process.env.MONGODB_URI_TEST && !process.env.MONGODB_URI) {
   console.error(
-    "Set MONGODB_URI_TEST (preferred) or MONGODB_URI before preparing the test DB."
+    "Set MONGODB_URI_TEST (preferred) or MONGODB_URI in backend/.env before preparing the test DB."
   );
   process.exit(1);
 }

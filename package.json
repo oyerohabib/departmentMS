@@ -1,0 +1,27 @@
+{
+  "name": "departmentms",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Campus connect — root scripts for baseline E2E, Lighthouse, and k6",
+  "scripts": {
+    "prepare-test-db": "npm run prepare-test-db --prefix backend",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui",
+    "test:e2e:report": "playwright show-report benchmarks/baseline/functional/playwright-report",
+    "lighthouse": "node scripts/lighthouse-baseline.mjs",
+    "lighthouse:auth": "node scripts/lighthouse-auth.mjs",
+    "lighthouse:ci": "lhci autorun",
+    "test:load": "k6 run load/courses.js",
+    "test:load:smoke": "LOAD_PROFILE=smoke k6 run --out json=benchmarks/baseline/backend/k6-smoke.json load/courses.js",
+    "test:load:normal": "LOAD_PROFILE=normal k6 run --out json=benchmarks/baseline/backend/k6-normal.json load/courses.js",
+    "test:load:elevated": "LOAD_PROFILE=elevated k6 run --out json=benchmarks/baseline/backend/k6-elevated.json load/courses.js",
+    "auth:state": "node scripts/prepare-auth-state.mjs",
+    "baseline:run": "node scripts/run-baseline.mjs",
+    "benchmark:baseline": "npm run lighthouse && npm run lighthouse:auth && npm run test:load:smoke"
+  },
+  "devDependencies": {
+    "@lhci/cli": "^0.14.0",
+    "@playwright/test": "^1.49.0",
+    "lighthouse": "^12.3.0"
+  }
+}

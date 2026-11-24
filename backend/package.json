@@ -4,13 +4,14 @@
   "description": "",
   "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "echo \"Use root npm run test:e2e / test:load / test:lighthouse\" && exit 0",
     "dev": "npx nodemon src/app.ts",
     "start": "node dist/app.js",
     "build": "tsc",
     "create-admin": "ts-node src/utils/createAdmin.ts",
     "seed-db": "ts-node src/utils/seedDatabase.ts",
     "clear-db": "ts-node src/utils/clearDatabase.ts",
+    "prepare-test-db": "ts-node src/utils/prepareTestDb.ts",
     "assign-students": "ts-node src/utils/assignStudentsToCourses.ts",
     "update-schema": "ts-node src/utils/updateCourseSchema.ts"
   },

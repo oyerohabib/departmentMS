@@ -1,0 +1,26 @@
+node_modules/
+.DS_Store
+
+# Env
+.env
+.env.local
+.env.*.local
+backend/.env
+frontend/.env
+frontend/.env.local
+
+# Build / tooling
+frontend/.next/
+frontend/out/
+backend/dist/
+*.tsbuildinfo
+
+# Playwright / Lighthouse / k6 heavy artifacts
+e2e/.auth/
+test-results/
+playwright-report/
+benchmarks/baseline/functional/playwright-report/
+benchmarks/baseline/frontend/*.report.html
+benchmarks/baseline/frontend/lhci/
+benchmarks/**/*.mp4
+benchmarks/**/trace.zip

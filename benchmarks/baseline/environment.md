@@ -5,7 +5,7 @@ Fill measured runtime fields when you record the pre-GraphQL baseline on a machi
 | Field | Value |
 |-------|-------|
 | Git branch | `baseline/performance-and-testing` |
-| Git commit | _(after tag: `git rev-parse pre-graphql-baseline`)_ |
+| Git commit | `d60587f` (`git rev-parse pre-graphql-baseline`) |
 | Git tag | `pre-graphql-baseline` |
 | Date (UTC) | 2026-11-24 (tooling landed; numbers pending local run) |
 | Machine | Developer workstation |

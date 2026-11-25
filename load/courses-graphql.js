@@ -4,7 +4,7 @@
  * Env:
  *   BASE_URL=http://127.0.0.1:4000
  *   STUDENT_EMAIL / STUDENT_PASSWORD
- *   LOAD_PROFILE=smoke|normal|elevated
+ *   LOAD_PROFILE=smoke|normal|elevated|stress|stress250
  */
 import http from "k6/http";
 import { check, group, sleep } from "k6";
@@ -37,6 +37,22 @@ const profiles = {
     stages: [
       { duration: "20s", target: 15 },
       { duration: "40s", target: 25 },
+      { duration: "20s", target: 0 },
+    ],
+  },
+  stress: {
+    stages: [
+      { duration: "30s", target: 50 },
+      { duration: "60s", target: 100 },
+      { duration: "30s", target: 100 },
+      { duration: "20s", target: 0 },
+    ],
+  },
+  stress250: {
+    stages: [
+      { duration: "30s", target: 100 },
+      { duration: "60s", target: 250 },
+      { duration: "40s", target: 250 },
       { duration: "20s", target: 0 },
     ],
   },

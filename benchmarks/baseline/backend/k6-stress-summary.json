@@ -1,0 +1,16 @@
+{
+  "profile": "rest-stress-100vu",
+  "generatedAt": "2026-11-25T10:30:00.000Z",
+  "baseUrl": "http://127.0.0.1:4000",
+  "vus_max": 100,
+  "http_reqs": 29912,
+  "iterations": 3739,
+  "error_rate": 0,
+  "http_req_duration_ms": {
+    "avg": 186.76,
+    "p50": 1.06,
+    "p95": 1170,
+    "max": 1280
+  },
+  "data_received_mb": 58
+}

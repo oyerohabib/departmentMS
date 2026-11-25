@@ -1,0 +1,22 @@
+{
+  "profile": "graphql-stress-100vu",
+  "generatedAt": "2026-11-25T10:33:00.000Z",
+  "baseUrl": "http://127.0.0.1:4000",
+  "vus_max": 100,
+  "http_reqs": 26944,
+  "iterations": 6736,
+  "error_rate": 0,
+  "http_req_duration_ms": {
+    "avg": 94.67,
+    "p50": 1.49,
+    "p95": 686.02,
+    "max": 723
+  },
+  "graphql_duration_ms": {
+    "avg": 1.42,
+    "p50": 1.27,
+    "p95": 2.39,
+    "max": 22.88
+  },
+  "data_received_mb": 32
+}

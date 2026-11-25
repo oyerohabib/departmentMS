@@ -1,53 +1,31 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useAuth } from "@/context/AuthContext";
 import CourseCard from "@/components/CourseCard";
-import { Course } from "@/types/course";
-import { courseService } from "@/services/course.service";
 import { toast } from "react-toastify";
+import { useMutation, useQuery } from "@apollo/client/react";
+import {
+  COURSES,
+  DISENROLL_FROM_COURSE,
+  ENROLL_IN_COURSE,
+  mapCourse,
+} from "@/graphql/courses";
 
 export default function CoursesPage() {
   const { user } = useAuth();
-  const [courses, setCourses] = useState<Course[]>([]);
-  const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
+  const { data, loading, refetch } = useQuery(COURSES, { skip: !user });
+  const [enroll] = useMutation(ENROLL_IN_COURSE);
+  const [disenroll] = useMutation(DISENROLL_FROM_COURSE);
 
-  useEffect(() => {
-    const fetchCourses = async () => {
-      try {
-        const response = await courseService.getAllCourses();
-        setCourses(response.data);
-      } catch (error) {
-        console.error("Error fetching courses:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    if (user) {
-      fetchCourses();
-    }
-  }, [user]);
+  const courses = (data?.courses || []).map(mapCourse);
 
   const handleEnroll = async (courseId: string) => {
     try {
-      const response = await courseService.enrollStudent(courseId);
-      console.log("handleEnroll", response);
-
+      await enroll({ variables: { courseId } });
       toast.success("Course enrolled successfully");
-      setCourses((prevCourses) =>
-        prevCourses.map((course) =>
-          course._id === courseId
-            ? ({
-                ...course,
-                students: Array.isArray(course.students)
-                  ? [...course.students, user!._id]
-                  : [user!._id],
-              } as Course)
-            : course
-        )
-      );
+      await refetch();
     } catch (err) {
       console.log("err", err);
     }
@@ -55,22 +33,9 @@ export default function CoursesPage() {
 
   const handleDisenroll = async (courseId: string) => {
     try {
-      const response = await courseService.disenrollStudent(courseId);
-      console.log("handleDisenroll", response);
-
+      await disenroll({ variables: { courseId } });
       toast.info("Course disenrolled successfully");
-      setCourses((prevCourses) =>
-        prevCourses.map((course) =>
-          course._id === courseId
-            ? ({
-                ...course,
-                students: Array.isArray(course.students)
-                  ? course.students.filter((id) => id !== user!._id)
-                  : [],
-              } as Course)
-            : course
-        )
-      );
+      await refetch();
     } catch (err) {
       console.log("err", err);
     }
@@ -100,7 +65,6 @@ export default function CoursesPage() {
         </div>
       </div>
 
-      {/* Search and filter */}
       <div className="bg-white p-4 rounded-lg shadow mb-6">
         <div className="flex items-center justify-center flex-col md:flex-row gap-4">
           <div className="flex-grow">

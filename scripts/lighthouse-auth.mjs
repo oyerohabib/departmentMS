@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 /**
  * Authenticated page Lighthouse runs using Playwright storage state.
- * Writes JSON under benchmarks/baseline/frontend/auth-*.report.json
+ * Writes JSON under ${BENCHMARK_DIR}/frontend/auth-*.report.json
+ * Env: BENCHMARK_DIR=benchmarks/baseline (default) or benchmarks/post-graphql
  */
 import { chromium } from "@playwright/test";
 import { spawnSync } from "child_process";
@@ -16,7 +17,8 @@ const FRONTEND_URL = (process.env.FRONTEND_URL || "http://127.0.0.1:3000").repla
   ""
 );
 const API_URL = (process.env.API_URL || "http://127.0.0.1:4000").replace(/\/$/, "");
-const outDir = path.join(root, "benchmarks/baseline/frontend");
+const benchmarkDir = process.env.BENCHMARK_DIR || "benchmarks/baseline";
+const outDir = path.join(root, benchmarkDir, "frontend");
 const statePath = path.join(root, "e2e/.auth/student.json");
 
 fs.mkdirSync(outDir, { recursive: true });

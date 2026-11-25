@@ -23,10 +23,15 @@ benchmarks/baseline/functional/playwright-report/
 benchmarks/baseline/frontend/*.report.html
 benchmarks/baseline/frontend/*.report.json
 benchmarks/baseline/frontend/lhci/
+benchmarks/post-graphql/functional/playwright-report/
+benchmarks/post-graphql/frontend/*.report.html
+benchmarks/post-graphql/frontend/*.report.json
 # k6 --out json dumps every metric point (multi‑MB); keep *-summary.json only
 benchmarks/baseline/backend/k6-smoke.json
 benchmarks/baseline/backend/k6-normal.json
 benchmarks/baseline/backend/k6-elevated.json
+benchmarks/post-graphql/backend/k6-*.json
+!benchmarks/post-graphql/backend/*-summary.json
 benchmarks/**/*.mp4
 benchmarks/**/trace.zip
 backend/uploads/*

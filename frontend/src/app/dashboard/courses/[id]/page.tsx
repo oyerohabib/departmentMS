@@ -1,16 +1,15 @@
 "use client";
 import { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
-import { courseService } from "@/services/course.service";
 import { materialService } from "@/services/material.service";
 import { useAuth } from "@/context/AuthContext";
 import Link from "next/link";
 import { formatDate } from "../../../../../utils/formatDate";
 import { toast } from "react-toastify";
-import { CourseWithDetails } from "@/types/course";
 import { Material } from "@/types/material";
 import { User } from "@/types/user";
-import { useApiError } from "@/hooks/useApiError";
+import { useQuery } from "@apollo/client/react";
+import { COURSE, mapCourse } from "@/graphql/courses";
 
 interface Params {
   id: string;
@@ -19,35 +18,30 @@ interface Params {
 export default function CourseDetailsPage() {
   const { id } = useParams() as unknown as Params;
   const { user } = useAuth();
-  const [course, setCourse] = useState<CourseWithDetails | null>(null);
   const [materials, setMaterials] = useState<Material[]>([]);
   const [activeTab, setActiveTab] = useState("materials");
-  const [students, setStudents] = useState<User[]>([]);
-  const [loading, setLoading] = useState(true);
-  const { error, handleError } = useApiError();
+  const { data, loading, error } = useQuery(COURSE, {
+    variables: { id },
+    skip: !id,
+  });
+
+  const gqlCourse = data?.course;
+  const course = gqlCourse ? mapCourse(gqlCourse) : null;
+  const students: User[] = gqlCourse?.students || [];
 
   useEffect(() => {
-    const fetchCourseDetails = async () => {
+    const fetchMaterials = async () => {
       try {
-        const courseResponse = await courseService.getCourseById(id);
-        setCourse(courseResponse.data);
-
         const materialsResponse = await materialService.getMaterialsByCourse(
           id
         );
         setMaterials(materialsResponse.data);
-
-        const studentsResponse = await courseService.getStudentsByCourse(id);
-        setStudents(studentsResponse.data);
       } catch (err) {
-        handleError(err);
-      } finally {
-        setLoading(false);
+        console.error(err);
       }
     };
-
-    fetchCourseDetails();
-  }, [id, handleError]);
+    if (id) fetchMaterials();
+  }, [id]);
 
   const handleDeleteMaterial = async (materialId: string) => {
     try {
@@ -55,7 +49,7 @@ export default function CourseDetailsPage() {
       toast.info("Material has been successfully deleted!");
       setMaterials((prev) => prev.filter((m) => m._id !== materialId));
     } catch (err) {
-      handleError(err);
+      console.error(err);
     }
   };
 
@@ -67,7 +61,7 @@ export default function CourseDetailsPage() {
     );
   }
 
-  if (error) return <div>Error: {error}</div>;
+  if (error) return <div>Error: {error.message}</div>;
 
   if (!course) {
     return (
@@ -85,7 +79,6 @@ export default function CourseDetailsPage() {
 
   return (
     <div>
-      {/* Course Header */}
       <div className="bg-white p-6 rounded-lg shadow">
         <div className="flex flex-col items-start lg:flex-row gap-4 lg:gap-0 justify-between">
           <h1 className="text-2xl font-bold mb-4">{course?.title}</h1>
@@ -113,13 +106,16 @@ export default function CourseDetailsPage() {
         <p className="text-gray-700 mb-4">{course?.description}</p>
         <div className="flex items-center text-sm text-gray-500">
           <span className="mr-4">
-            No of Enrolled Students: {course?.students?.length || 0}
+            No of Enrolled Students:{" "}
+            {Array.isArray(course?.students) ? course.students.length : 0}
           </span>
-          <span>No of Materials: {course?.materials?.length || 0}</span>
+          <span>
+            No of Materials:{" "}
+            {Array.isArray(course?.materials) ? course.materials.length : 0}
+          </span>
         </div>
       </div>
       <div className="bg-white rounded-lg shadow">
-        {/* Tabs */}
         <div className="flex border-b">
           <button
             className={`px-6 py-3 text-sm font-medium ${
@@ -144,7 +140,6 @@ export default function CourseDetailsPage() {
         </div>
 
         <div className="p-6">
-          {/* Materials Tab */}
           {activeTab === "materials" && (
             <div>
               {materials?.length > 0 ? (
@@ -217,7 +212,6 @@ export default function CourseDetailsPage() {
             </div>
           )}
 
-          {/* Students Tab */}
           {activeTab === "students" && (
             <div>
               <h2 className="text-lg font-semibold mb-4">
@@ -250,7 +244,11 @@ export default function CourseDetailsPage() {
                         </tr>
                       ))
                     ) : (
-                      <p>No Students Found</p>
+                      <tr>
+                        <td className="px-6 py-4" colSpan={2}>
+                          No Students Found
+                        </td>
+                      </tr>
                     )}
                   </tbody>
                 </table>

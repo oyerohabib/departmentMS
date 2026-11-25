@@ -6,11 +6,11 @@ Recorded **2026-11-24** on local production builds. Compare to `benchmarks/post-
 
 | Measurement | Before (REST) | After (GraphQL) |
 |-------------|---------------|-----------------|
-| E2E pass rate | **19/19 (100%)** | |
-| Failed scenarios | 0 | |
-| Suite duration | ~46.7 s | |
+| E2E pass rate | **19/19 (100%)** | **19/19 (100%)** |
+| Failed scenarios | 0 | 0 |
+| Suite duration | ~46.7 s | ~42.0 s |
 
-Artifacts: `functional/results.json`
+Artifacts: `functional/results.json` · After: `../post-graphql/functional/results.json`
 
 ## Frontend performance
 
@@ -18,34 +18,34 @@ Lighthouse lab metrics (public / cold URL loads). Authenticated wall times from 
 
 | Measurement | Before (REST) | After (GraphQL) |
 |-------------|---------------|-----------------|
-| `/` LCP (ms) | 3682 | |
-| `/` TTFB (ms) | 1.8 | |
-| `/` TBT (ms) | 339 | |
-| `/` performance score | 0.76 | |
-| `/` transfer size (bytes) | 362662 | |
-| `/` network requests | 21 | |
-| `/login` LCP (ms) | 2789 | |
-| `/dashboard` wall load (ms, auth) | 1524 | |
-| `/dashboard/courses` wall load (ms, auth) | 1561 | |
-| `/dashboard/profile` wall load (ms, auth) | 1466 | |
-| `/dashboard/users` wall load (ms, auth) | 1662 | |
+| `/` LCP (ms) | 3682 | 3599 |
+| `/` TTFB (ms) | 1.8 | 1.8 |
+| `/` TBT (ms) | 339 | 53 |
+| `/` performance score | 0.76 | 0.85 |
+| `/` transfer size (bytes) | 362662 | 422699 |
+| `/` network requests | 21 | 24 |
+| `/login` LCP (ms) | 2789 | 2994 |
+| `/dashboard` wall load (ms, auth) | 1524 | 1528 |
+| `/dashboard/courses` wall load (ms, auth) | 1561 | 1470 |
+| `/dashboard/profile` wall load (ms, auth) | 1466 | 1584 |
+| `/dashboard/users` wall load (ms, auth) | 1662 | 1540 |
 
-Artifacts: `frontend/summary.json`, `frontend/auth-summary.json`
+Artifacts: `frontend/summary.json`, `frontend/auth-summary.json` · After: `../post-graphql/frontend/`
 
 ## Backend load (k6)
 
-| Measurement | Smoke (1–2 VUs) | Normal (5–10 VUs) | Elevated (≤25 VUs) | After (GraphQL) |
-|-------------|-----------------|-------------------|--------------------|-----------------|
-| http_req_duration p50 (ms) | 1.74 | 1.26 | 1.14 | |
-| http_req_duration p95 (ms) | 70.86 | 70.78 | 69.77 | |
-| http_req_duration p99 (ms) | 73.51 | 76.83 | 72.30 | |
-| http_reqs | 320 | 3104 | 5139 | |
-| Error rate | **0%** | **0%** | **10.6%** (545× status `0`, 4594× `200`) | |
+| Measurement | Smoke (REST) | Normal (REST) | Elevated (REST) | Smoke (GQL) | Normal (GQL) | Elevated (GQL) |
+|-------------|--------------|---------------|-----------------|-------------|--------------|----------------|
+| http_req_duration p50 (ms) | 1.74 | 1.26 | 1.14 | 2.93 | 2.60 | 2.15 |
+| http_req_duration p95 (ms) | 70.86 | 70.78 | 69.77 | 78.75 | 72.79 | 70.88 |
+| http_reqs | 320 | 3104 | 5139 | 168 | 1648 | 4468 |
+| Error rate | **0%** | **0%** | **10.6%** | **0%** | **0%** | **0%** |
 
-Artifacts: `backend/k6-*-summary.json` (raw multi‑MB dumps gitignored)
+Artifacts: `backend/k6-*-summary.json` · After: `../post-graphql/backend/k6-graphql-*-summary.json`
 
 ## Interpretation notes
 
 - GraphQL is not automatically faster; watch resolver N+1 and payload size.
-- Elevated profile shows some connection drops under higher concurrency — useful guardrail for post-GraphQL comparison.
+- REST elevated showed connection drops under higher concurrency; GraphQL elevated stayed at 0% errors in this run.
 - Keep DB fixtures, hardware, and warm/cold conditions consistent across runs.
+- Apollo Client increased home transfer size / request count; auth course browse wall time stayed comparable.

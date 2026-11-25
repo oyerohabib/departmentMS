@@ -3,6 +3,7 @@ import path from "path";
 
 const FRONTEND_URL = process.env.FRONTEND_URL || "http://127.0.0.1:3000";
 const API_URL = process.env.API_URL || "http://127.0.0.1:4000";
+const BENCHMARK_DIR = process.env.BENCHMARK_DIR || "benchmarks/baseline";
 
 export default defineConfig({
   testDir: path.join(__dirname, "e2e"),
@@ -12,8 +13,8 @@ export default defineConfig({
   workers: 1,
   reporter: [
     ["list"],
-    ["html", { open: "never", outputFolder: "benchmarks/baseline/functional/playwright-report" }],
-    ["json", { outputFile: "benchmarks/baseline/functional/results.json" }],
+    ["html", { open: "never", outputFolder: `${BENCHMARK_DIR}/functional/playwright-report` }],
+    ["json", { outputFile: `${BENCHMARK_DIR}/functional/results.json` }],
   ],
   timeout: 60_000,
   expect: { timeout: 15_000 },

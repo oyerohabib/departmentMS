@@ -15,9 +15,14 @@
     "test:load:smoke": "LOAD_PROFILE=smoke k6 run --out json=benchmarks/baseline/backend/k6-smoke.json load/courses.js",
     "test:load:normal": "LOAD_PROFILE=normal k6 run --out json=benchmarks/baseline/backend/k6-normal.json load/courses.js",
     "test:load:elevated": "LOAD_PROFILE=elevated k6 run --out json=benchmarks/baseline/backend/k6-elevated.json load/courses.js",
+    "test:load:graphql": "k6 run load/courses-graphql.js",
+    "test:load:graphql:smoke": "LOAD_PROFILE=smoke k6 run --out json=benchmarks/post-graphql/backend/k6-graphql-smoke.json load/courses-graphql.js",
+    "test:load:graphql:normal": "LOAD_PROFILE=normal k6 run --out json=benchmarks/post-graphql/backend/k6-graphql-normal.json load/courses-graphql.js",
+    "test:load:graphql:elevated": "LOAD_PROFILE=elevated k6 run --out json=benchmarks/post-graphql/backend/k6-graphql-elevated.json load/courses-graphql.js",
     "auth:state": "node scripts/prepare-auth-state.mjs",
     "baseline:run": "node scripts/run-baseline.mjs",
-    "benchmark:baseline": "npm run lighthouse && npm run lighthouse:auth && npm run test:load:smoke"
+    "benchmark:baseline": "npm run lighthouse && npm run lighthouse:auth && npm run test:load:smoke",
+    "benchmark:post-graphql": "mkdir -p benchmarks/post-graphql/functional benchmarks/post-graphql/frontend benchmarks/post-graphql/backend && BENCHMARK_DIR=benchmarks/post-graphql FRONTEND_URL=http://127.0.0.1:3000 API_URL=http://127.0.0.1:4000 npm run test:e2e && BENCHMARK_DIR=benchmarks/post-graphql FRONTEND_URL=http://127.0.0.1:3000 npm run lighthouse && BENCHMARK_DIR=benchmarks/post-graphql FRONTEND_URL=http://127.0.0.1:3000 API_URL=http://127.0.0.1:4000 npm run lighthouse:auth && BASE_URL=http://127.0.0.1:4000 npm run test:load:graphql:smoke"
   },
   "devDependencies": {
     "@lhci/cli": "^0.14.0",

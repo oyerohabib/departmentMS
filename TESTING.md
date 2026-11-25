@@ -94,7 +94,7 @@ JSON summary: `benchmarks/baseline/functional/results.json`.
 ## Lighthouse
 
 ```bash
-# public pages
+# public pages (default → benchmarks/baseline/frontend/)
 FRONTEND_URL=http://127.0.0.1:3000 npm run lighthouse
 
 # authenticated companion timings (localStorage JWT)
@@ -104,7 +104,7 @@ FRONTEND_URL=http://127.0.0.1:3000 API_URL=http://127.0.0.1:4000 npm run lightho
 npm run lighthouse:ci
 ```
 
-Outputs: `benchmarks/baseline/frontend/`.
+Set `BENCHMARK_DIR=benchmarks/post-graphql` to write After artifacts instead of baseline.
 
 ## k6 load tests
 
@@ -114,7 +114,15 @@ mkdir -p benchmarks/baseline/backend
 npm run test:load:smoke
 npm run test:load:normal
 npm run test:load:elevated
+
+# After GraphQL migration
+mkdir -p benchmarks/post-graphql/backend
+BASE_URL=http://127.0.0.1:4000 npm run test:load:graphql:smoke
+BASE_URL=http://127.0.0.1:4000 npm run test:load:graphql:normal
+BASE_URL=http://127.0.0.1:4000 npm run test:load:graphql:elevated
 ```
+
+GraphQL endpoint: `POST http://127.0.0.1:4000/graphql` (JWT Bearer). Courses UI uses Apollo Client; auth/materials remain on REST.
 
 ## After a green baseline
 
@@ -122,4 +130,12 @@ npm run test:load:elevated
 2. Commit tooling + summary JSON (HTML reports are gitignored).
 3. Tag: `git tag pre-graphql-baseline`
 
-GraphQL work belongs on a separate branch (e.g. `feature/graphql-apollo`), with results under `benchmarks/post-graphql/`.
+## After GraphQL (this branch)
+
+With production FE/API on `:3000` / `:4000` against `departmentms_test`:
+
+```bash
+npm run benchmark:post-graphql
+```
+
+That runs E2E + Lighthouse + auth timings + GraphQL k6 smoke into `benchmarks/post-graphql/`, then fill Before/After columns in both summary files.

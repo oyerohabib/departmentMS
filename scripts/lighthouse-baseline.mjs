@@ -5,6 +5,7 @@
  *
  * Env:
  *   FRONTEND_URL=http://127.0.0.1:3000
+ *   BENCHMARK_DIR=benchmarks/baseline   (or benchmarks/post-graphql)
  *   STORAGE_STATE=e2e/.auth/student.json  (optional; for authenticated pages)
  *   COURSE_ID=<mongo id>                  (optional; for course detail page)
  */
@@ -15,7 +16,8 @@ import { fileURLToPath } from "url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.join(__dirname, "..");
-const outDir = path.join(root, "benchmarks/baseline/frontend");
+const benchmarkDir = process.env.BENCHMARK_DIR || "benchmarks/baseline";
+const outDir = path.join(root, benchmarkDir, "frontend");
 const FRONTEND_URL = (process.env.FRONTEND_URL || "http://127.0.0.1:3000").replace(
   /\/$/,
   ""

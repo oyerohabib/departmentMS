@@ -1,0 +1,29 @@
+{
+  "profile": "graphql-smoke",
+  "generatedAt": "2026-11-24T22:19:05.000Z",
+  "baseUrl": "http://127.0.0.1:4000",
+  "http_reqs": 168,
+  "failed_requests": 0,
+  "error_rate": 0,
+  "checks": {
+    "pass": 294,
+    "fail": 0
+  },
+  "vus_max": 2,
+  "status_counts": {
+    "200": 168
+  },
+  "http_req_duration_ms": {
+    "avg": 21.22,
+    "p50": 2.93,
+    "p95": 78.75,
+    "p99": null,
+    "max": 81.87
+  },
+  "graphql_duration_ms": {
+    "avg": 2.61,
+    "p50": 2.15,
+    "p95": 4.54,
+    "max": 5.05
+  }
+}

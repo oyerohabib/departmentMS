@@ -5,6 +5,7 @@ import { Inter } from "next/font/google";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { AuthProvider } from "@/context/AuthContext";
+import ApolloProvider from "@/components/ApolloProvider";
 import { ToastContainer } from "react-toastify";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -27,13 +28,15 @@ export default function RootLayout({
       </head>
       <body className={inter.className}>
         <AuthProvider>
-          <div className="min-h-screen flex flex-col">
-            <Navbar />
-            <main className="flex-grow bg-gray-50 justify-center items-center">
-              {children}
-            </main>
-            <Footer />
-          </div>
+          <ApolloProvider>
+            <div className="min-h-screen flex flex-col">
+              <Navbar />
+              <main className="flex-grow bg-gray-50 justify-center items-center">
+                {children}
+              </main>
+              <Footer />
+            </div>
+          </ApolloProvider>
         </AuthProvider>
         <ToastContainer />
       </body>

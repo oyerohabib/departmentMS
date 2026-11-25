@@ -1,50 +1,37 @@
 "use client";
 import { useState, useEffect } from "react";
 import { useParams, useRouter } from "next/navigation";
-import { Course } from "@/types/course";
 import Link from "next/link";
-import { useAuth } from "@/context/AuthContext";
-import { courseService } from "@/services/course.service";
-import { useApiError } from "@/hooks/useApiError";
 import { toast } from "react-toastify";
+import { useMutation, useQuery } from "@apollo/client/react";
+import { COURSE, UPDATE_COURSE, mapCourse } from "@/graphql/courses";
 
 export default function EditCoursePage() {
-  const { user } = useAuth();
   const { id } = useParams() as { id: string };
   const router = useRouter();
-  const [course, setCourse] = useState<Course | null>(null);
-  const [loading, setLoading] = useState(true);
   const [formData, setFormData] = useState({
     title: "",
     courseCode: "",
     description: "",
-    lecturer: user!._id,
   });
-  const { error, handleError, clearError } = useApiError();
+  const [error, setError] = useState("");
+  const { data, loading: loadingCourse } = useQuery(COURSE, {
+    variables: { id },
+    skip: !id,
+  });
+  const [updateCourse, { loading: saving }] = useMutation(UPDATE_COURSE);
+
+  const course = data?.course ? mapCourse(data.course) : null;
 
   useEffect(() => {
-    const fetchCourse = async () => {
-      try {
-        const response = await courseService.getCourseById(id as string);
-        const courseData = response.data;
-
-        setCourse(courseData);
-        setFormData((prevData) => ({
-          ...prevData,
-          title: courseData?.title,
-          courseCode: courseData?.courseCode,
-          description: courseData?.description,
-        }));
-      } catch (err) {
-        handleError(err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchCourse();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [id]);
+    if (data?.course) {
+      setFormData({
+        title: data.course.title,
+        courseCode: data.course.courseCode,
+        description: data.course.description,
+      });
+    }
+  }, [data]);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -55,23 +42,29 @@ export default function EditCoursePage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    clearError();
-    setLoading(true);
+    setError("");
 
     try {
-      const response = await courseService.updateCourse(id as string, formData);
-      console.log("Updated Course Data:", response);
-      // Redirect to the course details page after saving
+      await updateCourse({
+        variables: {
+          id,
+          input: {
+            title: formData.title,
+            courseCode: formData.courseCode,
+            description: formData.description,
+          },
+        },
+      });
       router.push(`/dashboard/courses/${id}`);
       toast.success("Course has been successfully edited!");
-    } catch (err) {
-      handleError(err);
-    } finally {
-      setLoading(false);
+    } catch (err: unknown) {
+      const message =
+        err instanceof Error ? err.message : "Failed to update course";
+      setError(message);
     }
   };
 
-  if (loading) {
+  if (loadingCourse) {
     return (
       <div className="flex justify-center p-12">
         <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
@@ -145,9 +138,10 @@ export default function EditCoursePage() {
         </div>
         <button
           type="submit"
+          disabled={saving}
           className="btn-primary px-4 py-2 rounded-md bg-blue-600 text-white hover:bg-blue-700 transition duration-200 cursor-pointer mt-4"
         >
-          Save Changes
+          {saving ? "Saving..." : "Save Changes"}
         </button>
       </form>
     </div>

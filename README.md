@@ -6,7 +6,7 @@ A comprehensive web application for managing academic departments, including cou
 
 The Department Management System (DMS) is designed to streamline educational operations by providing a platform for course management, student enrollment, learning materials distribution, and administrative tasks. The application features role-based access controls and a responsive user interface.
 
-Courses are served over **GraphQL** (Apollo Server + Apollo Client). Auth, users, and materials remain on **REST**.
+Courses are served over **GraphQL** (Apollo Server + Apollo Client). Auth, users, and materials remain on **REST**. The repo includes a measured **Before (REST) → After (GraphQL)** performance study so visitors can see how the migration was validated, not just implemented.
 
 ## Live Applications
 
@@ -18,8 +18,43 @@ Courses are served over **GraphQL** (Apollo Server + Apollo Client). Auth, users
 
 - [Frontend Documentation](https://github.com/oyerohabib/departmentMS/blob/main/frontend/README.md)
 - [Backend Documentation](https://github.com/oyerohabib/departmentMS/blob/main/backend/README.md)
-- [Testing & performance](./TESTING.md) (Playwright, Lighthouse, k6 — REST baseline + GraphQL After)
-- Benchmarks: [`benchmarks/baseline/`](./benchmarks/baseline/summary.md) · [`benchmarks/post-graphql/`](./benchmarks/post-graphql/summary.md)
+- [Testing & performance how-to](./TESTING.md)
+- Full tables: [`benchmarks/baseline/summary.md`](./benchmarks/baseline/summary.md) · [`benchmarks/post-graphql/summary.md`](./benchmarks/post-graphql/summary.md)
+
+## Engineering highlights
+
+| Theme | What shipped |
+|-------|----------------|
+| Hybrid API | Course domain on GraphQL; auth / users / materials on REST |
+| Shared backend | `course.service` used by thin REST controllers and GraphQL resolvers |
+| Client | Apollo Client on dashboard/course pages; JWT Bearer on `/graphql` |
+| Data loading | DataLoader for lecturer/student user lookups (avoids N+1) |
+| Quality gate | Playwright E2E (19 scenarios), Lighthouse, Grafana k6 |
+| Evidence | Tagged baseline (`pre-graphql-baseline`) + After artifacts under `benchmarks/` |
+
+## Benchmarks at a glance
+
+Local production builds against a seeded test DB (Nov 2026). Headline: **courses stayed correct and fast after GraphQL**; biggest wins were **reliability under load** and a **smoother home-page lab score**, not a dramatic single-request speedup.
+
+| Check | Before (REST) | After (GraphQL) |
+|-------|---------------|-----------------|
+| E2E workflows | 19/19 | **19/19** |
+| Home Lighthouse score / TBT | 0.76 / 339 ms | **0.85 / 53 ms** |
+| Auth `/dashboard/courses` wall load | 1561 ms | **1470 ms** |
+| k6 elevated (≤25 VUs) error rate | 10.6% | **0%** |
+| Course-only latency @ 100 VUs (p50 / p95) | list ~1.6 / 2.5 ms | GraphQL ~**1.3 / 2.4 ms** |
+| Course-only latency @ 250 VUs (p50 / p95) | list ~1.7 / 2.4 ms | GraphQL ~**1.1 / 2.1 ms** |
+
+**How to read this:** mixed k6 totals include REST login; the course-only rows compare `GET /courses` vs `/graphql` query timing only. Home transfer size rose slightly after Apollo Client. Details and raw summaries live in `benchmarks/`.
+
+Reproduce locally (API + FE production builds on `:4000` / `:3000`):
+
+```bash
+npm run test:e2e
+npm run benchmark:post-graphql          # E2E + Lighthouse + GraphQL smoke
+BASE_URL=http://127.0.0.1:4000 npm run test:load:stress      # 100 VUs REST
+BASE_URL=http://127.0.0.1:4000 npm run test:load:graphql:stress
+```
 
 ## Features
 

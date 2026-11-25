@@ -1,4 +1,4 @@
-# Department Management System
+# <img src="docs/logo.png" alt="Campus connect" width="36" height="36" /> Department Management System
 
 ## Overview
 

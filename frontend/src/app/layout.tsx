@@ -14,6 +14,10 @@ export const metadata: Metadata = {
   title: "Campus connect - Learning Management System",
   description:
     "A platform for students and lecturers to connect and share course materials",
+  icons: {
+    icon: "/logo.png",
+    apple: "/logo.png",
+  },
 };
 
 export default function RootLayout({

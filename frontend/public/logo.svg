@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Campus connect">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3B82F6"/>
+      <stop offset="100%" stop-color="#1E3A8A"/>
+    </linearGradient>
+  </defs>
+  <rect width="128" height="128" rx="28" fill="url(#bg)"/>
+  <g fill="none" stroke="#FFFFFF" stroke-width="7" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M28 78c18-12 36-12 54 0"/>
+    <path d="M28 78c0 10 10 18 26 18s26-8 26-18"/>
+    <path d="M82 78c0 10 8 16 18 16"/>
+    <path d="M28 78V62c18-10 36-10 54 0v16"/>
+    <path d="M82 62c8-5 14-6 18-6v22"/>
+    <path d="M64 58v-18"/>
+    <path d="M64 40L48 28"/>
+    <path d="M64 40l16-12"/>
+  </g>
+  <circle cx="64" cy="22" r="6" fill="#FFFFFF"/>
+  <circle cx="44" cy="26" r="5.5" fill="#FFFFFF"/>
+  <circle cx="84" cy="26" r="5.5" fill="#FFFFFF"/>
+</svg>

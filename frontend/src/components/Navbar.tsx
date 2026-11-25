@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
@@ -13,9 +14,14 @@ export default function Navbar() {
     <nav className="bg-white/95 text-gray-900 border-b border-gray-100 sticky top-0 z-30 backdrop-blur">
       <div className="mx-auto flex h-20 w-full max-w-6xl items-center justify-between px-4">
         <Link href="/" className="flex items-center gap-3">
-          <span className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-600 text-white font-semibold">
-            CC
-          </span>
+          <Image
+            src="/logo.png"
+            alt="Campus connect"
+            width={40}
+            height={40}
+            className="h-10 w-10 rounded-xl"
+            priority
+          />
           <span className="text-lg font-semibold">Campus connect</span>
         </Link>
         <ul className="flex items-center gap-4 text-sm font-medium text-gray-600">

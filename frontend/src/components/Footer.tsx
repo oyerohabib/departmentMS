@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 
 export default function Footer() {
@@ -7,7 +8,16 @@ export default function Footer() {
     <footer className="border-t border-gray-100 bg-white">
       <div className="mx-auto flex w-full max-w-6xl flex-col gap-8 px-4 py-10 md:flex-row md:items-center md:justify-between">
         <div>
-          <p className="text-lg font-semibold text-gray-900">Campus connect</p>
+          <div className="flex items-center gap-3">
+            <Image
+              src="/logo.png"
+              alt="Campus connect"
+              width={36}
+              height={36}
+              className="h-9 w-9 rounded-lg"
+            />
+            <p className="text-lg font-semibold text-gray-900">Campus connect</p>
+          </div>
           <p className="mt-2 max-w-sm text-sm text-gray-500">
             Empowering departments to collaborate with students in a secure,
             streamlined learning environment.

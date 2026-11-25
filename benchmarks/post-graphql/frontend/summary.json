@@ -1,0 +1,104 @@
+{
+  "generatedAt": "2026-11-24T22:17:02.811Z",
+  "frontendUrl": "http://127.0.0.1:3000",
+  "pages": [
+    {
+      "name": "home",
+      "url": "http://127.0.0.1:3000/",
+      "performanceScore": 0.85,
+      "metrics": {
+        "FCP": 2836.7900999999997,
+        "LCP": 3599.33335,
+        "TTFB": 1.843,
+        "CLS": 0,
+        "TBT": 52.66050000000041,
+        "totalByteWeight": 422699,
+        "networkRequests": 24
+      }
+    },
+    {
+      "name": "login",
+      "url": "http://127.0.0.1:3000/login",
+      "performanceScore": 0.91,
+      "metrics": {
+        "FCP": 2411.7889000000005,
+        "LCP": 2993.9297000000006,
+        "TTFB": 1.155,
+        "CLS": 0,
+        "TBT": 48,
+        "totalByteWeight": 373375,
+        "networkRequests": 23
+      }
+    },
+    {
+      "name": "register",
+      "url": "http://127.0.0.1:3000/register",
+      "performanceScore": 0.91,
+      "metrics": {
+        "FCP": 2467.1167000000005,
+        "LCP": 3076.4426000000003,
+        "TTFB": 1.038,
+        "CLS": 0,
+        "TBT": 45,
+        "totalByteWeight": 373375,
+        "networkRequests": 23
+      }
+    },
+    {
+      "name": "dashboard",
+      "url": "http://127.0.0.1:3000/dashboard",
+      "performanceScore": 0.86,
+      "metrics": {
+        "FCP": 2524.1152,
+        "LCP": 3729.7490000000007,
+        "TTFB": 1.118,
+        "CLS": 0,
+        "TBT": 55,
+        "totalByteWeight": 391538,
+        "networkRequests": 28
+      }
+    },
+    {
+      "name": "courses",
+      "url": "http://127.0.0.1:3000/dashboard/courses",
+      "performanceScore": 0.87,
+      "metrics": {
+        "FCP": 2440.5731,
+        "LCP": 3640.0795000000007,
+        "TTFB": 1.1380000000000001,
+        "CLS": 0,
+        "TBT": 57,
+        "totalByteWeight": 394470,
+        "networkRequests": 29
+      }
+    },
+    {
+      "name": "profile",
+      "url": "http://127.0.0.1:3000/dashboard/profile",
+      "performanceScore": 0.87,
+      "metrics": {
+        "FCP": 2419.8322,
+        "LCP": 3601.7779999999993,
+        "TTFB": 1.124,
+        "CLS": 0,
+        "TBT": 47.999999999999545,
+        "totalByteWeight": 381330,
+        "networkRequests": 27
+      }
+    },
+    {
+      "name": "users",
+      "url": "http://127.0.0.1:3000/dashboard/users",
+      "performanceScore": 0.88,
+      "metrics": {
+        "FCP": 2387.1046,
+        "LCP": 3521.362,
+        "TTFB": 5.266,
+        "CLS": 0,
+        "TBT": 49.000000000000455,
+        "totalByteWeight": 380431,
+        "networkRequests": 27
+      }
+    }
+  ]
+}

@@ -1,0 +1,71 @@
+{
+  "generatedAt": "2026-11-24T22:18:24.672Z",
+  "note": "Auth pages use Playwright navigation timings because the app stores JWT in localStorage (Lighthouse cold load redirects to /login).",
+  "pages": [
+    {
+      "name": "dashboard",
+      "url": "http://127.0.0.1:3000/dashboard",
+      "finalUrl": "http://127.0.0.1:3000/dashboard",
+      "status": 200,
+      "wallMs": 1528,
+      "title": "Campus connect - Learning Management System",
+      "ttfb": 1.4000000357627869,
+      "domContentLoaded": 946.3000000119209,
+      "loadEvent": 949.4000000357628,
+      "fcp": 924,
+      "transferSize": 3513
+    },
+    {
+      "name": "courses",
+      "url": "http://127.0.0.1:3000/dashboard/courses",
+      "finalUrl": "http://127.0.0.1:3000/dashboard/courses",
+      "status": 200,
+      "wallMs": 1470,
+      "title": "Campus connect - Learning Management System",
+      "ttfb": 1.4000000357627869,
+      "domContentLoaded": 900.6999999880791,
+      "loadEvent": 902.6999999880791,
+      "fcp": 880,
+      "transferSize": 3542
+    },
+    {
+      "name": "profile",
+      "url": "http://127.0.0.1:3000/dashboard/profile",
+      "finalUrl": "http://127.0.0.1:3000/dashboard/profile",
+      "status": 200,
+      "wallMs": 1584,
+      "title": "Campus connect - Learning Management System",
+      "ttfb": 1.199999988079071,
+      "domContentLoaded": 1017.1000000238419,
+      "loadEvent": 1019.1000000238419,
+      "fcp": 1000,
+      "transferSize": 3493
+    },
+    {
+      "name": "course-detail",
+      "url": "http://127.0.0.1:3000/dashboard/courses/6b05fec62cdbbb65b7aa13e2",
+      "finalUrl": "http://127.0.0.1:3000/dashboard/courses/6b05fec62cdbbb65b7aa13e2",
+      "status": 200,
+      "wallMs": 1454,
+      "title": "Campus connect - Learning Management System",
+      "ttfb": 4.699999988079071,
+      "domContentLoaded": 861.2999999523163,
+      "loadEvent": 863.5,
+      "fcp": 840,
+      "transferSize": 4383
+    },
+    {
+      "name": "users",
+      "url": "http://127.0.0.1:3000/dashboard/users",
+      "finalUrl": "http://127.0.0.1:3000/dashboard/users",
+      "status": 200,
+      "wallMs": 1540,
+      "title": "Campus connect - Learning Management System",
+      "ttfb": 0.8999999761581421,
+      "domContentLoaded": 982.6000000238419,
+      "loadEvent": 984.6000000238419,
+      "fcp": 964,
+      "transferSize": 3419
+    }
+  ]
+}

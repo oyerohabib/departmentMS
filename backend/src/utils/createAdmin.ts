@@ -1,14 +1,11 @@
 import mongoose from "mongoose";
 import { User } from "../models/User";
-import dotenv from "dotenv";
 import { hashPassword } from "./auth";
-
-dotenv.config();
+import { getMongoUri } from "./mongoUri";
 
 const createAdminUser = async () => {
   try {
-    await mongoose.connect(process.env.MONGODB_URI as string);
-    hashPassword;
+    await mongoose.connect(getMongoUri());
 
     const hashedPassword = await hashPassword("password");
 

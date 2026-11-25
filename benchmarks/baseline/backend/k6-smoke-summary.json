@@ -1,0 +1,22 @@
+{
+  "profile": "smoke",
+  "generatedAt": "2026-11-24T21:31:00.682Z",
+  "http_reqs": 320,
+  "failed_requests": 0,
+  "error_rate": 0,
+  "checks": {
+    "pass": 400,
+    "fail": 0
+  },
+  "vus_max": 2,
+  "status_counts": {
+    "200": 320
+  },
+  "http_req_duration_ms": {
+    "avg": 18.92,
+    "p50": 1.74,
+    "p95": 70.86,
+    "p99": 73.51,
+    "max": 84.56
+  }
+}

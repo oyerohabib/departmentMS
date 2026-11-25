@@ -2,16 +2,24 @@ import mongoose from "mongoose";
 import { User } from "../models/User";
 import { Course } from "../models/Course";
 import { Material } from "../models/Material";
-import dotenv from "dotenv";
 import { hashPassword } from "./auth";
-
-dotenv.config();
+import { getMongoUri } from "./mongoUri";
 
 const seedDatabase = async () => {
   try {
     console.log("Connecting to MongoDB...");
-    await mongoose.connect(process.env.MONGODB_URI as string);
+    await mongoose.connect(getMongoUri());
     console.log("Connected to MongoDB");
+
+    // Create Admin
+    console.log("Creating admin...");
+    await User.create({
+      name: "Admin",
+      email: "admin@campusconnect.com",
+      password: await hashPassword("password"),
+      role: "admin",
+    });
+    console.log("Admin created...");
 
     // Create Lecturers
     console.log("Creating lecturers...");
@@ -90,48 +98,56 @@ const seedDatabase = async () => {
     const courses = await Course.insertMany([
       {
         title: "Introduction to Computer Science",
+        courseCode: "CS101",
         description:
           "An introductory course on computer science principles and programming.",
         lecturer: lecturers[0]._id,
       },
       {
         title: "Advanced Database Systems",
+        courseCode: "DBS301",
         description:
           "A deep dive into database design, implementation, and optimization techniques.",
         lecturer: lecturers[1]._id,
       },
       {
         title: "Web Development Fundamentals",
+        courseCode: "WEB201",
         description:
           "Learn the basics of web development, including HTML, CSS, and JavaScript.",
         lecturer: lecturers[2]._id,
       },
       {
         title: "Mobile App Development",
+        courseCode: "MOB220",
         description:
           "Explore the principles of mobile app development for iOS and Android.",
         lecturer: lecturers[0]._id,
       },
       {
         title: "Data Structures and Algorithms",
+        courseCode: "DSA210",
         description:
           "An in-depth study of data structures and algorithms for efficient problem-solving.",
         lecturer: lecturers[1]._id,
       },
       {
         title: "Introduction to AI & ML",
+        courseCode: "AIM350",
         description:
           "An overview of artificial intelligence and machine learning concepts and applications.",
         lecturer: lecturers[2]._id,
       },
       {
         title: "Cybersecurity Fundamentals",
+        courseCode: "SEC180",
         description:
           "Learn the basics of cybersecurity, including threats, vulnerabilities, and defenses.",
         lecturer: lecturers[0]._id,
       },
       {
         title: "Advanced Blockchain Systems",
+        courseCode: "BLK400",
         description:
           "A comprehensive look at blockchain technology and its applications.",
         lecturer: lecturers[1]._id,
@@ -268,6 +284,7 @@ const seedDatabase = async () => {
     console.log("Database seeded successfully");
   } catch (error) {
     console.error("Error seeding database:", error);
+    process.exitCode = 1;
   } finally {
     await mongoose.disconnect();
     console.log("Disconnected from MongoDB");

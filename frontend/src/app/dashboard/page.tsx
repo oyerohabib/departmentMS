@@ -1,46 +1,15 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import { useAuth } from "@/context/AuthContext";
 import CourseCard from "@/components/CourseCard";
-import { Course } from "@/types/course";
-import { courseService } from "../../services/course.service";
 import Link from "next/link";
-import { useApiError } from "@/hooks/useApiError";
-import { toast } from "react-toastify";
+import { useQuery } from "@apollo/client/react";
+import { MY_COURSES, mapCourse } from "@/graphql/courses";
 
 export default function Dashboard() {
   const { user } = useAuth();
-  const [courses, setCourses] = useState<Course[]>([]);
-  const [loading, setLoading] = useState(true);
-  const { error, handleError } = useApiError();
-
-  useEffect(() => {
-    const fetchCourses = async () => {
-      try {
-        let response;
-        if (user?.role === "lecturer") {
-          response = await courseService.getLecturerCourses(user._id);
-        } else if (user?.role === "student") {
-          response = await courseService.getEnrolledCourses();
-        } else if (user?.role === "admin") {
-          response = await courseService.getAllCourses();
-        }
-        console.log("response.data", response);
-
-        setCourses(response?.data || []);
-      } catch (err) {
-        handleError(err);
-        toast.info(error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    if (user) {
-      fetchCourses();
-    }
-  }, [user, handleError, error]);
+  const { data, loading } = useQuery(MY_COURSES, { skip: !user });
+  const courses = (data?.myCourses || []).map(mapCourse);
 
   return (
     <div>
@@ -62,7 +31,6 @@ export default function Dashboard() {
         )}
       </div>
 
-      {/* Stats Section */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
         <div className="bg-white p-6 rounded-lg shadow">
           <h3 className="text-lg font-medium text-gray-500">Total Courses</h3>
@@ -81,14 +49,7 @@ export default function Dashboard() {
           {courses.map((course) => (
             <CourseCard
               key={course._id}
-              course={{
-                ...course,
-                _id: course._id,
-                courseCode: course.courseCode,
-                students: course.students,
-                materials: course.materials,
-                lecturer: course.lecturer,
-              }}
+              course={course}
               actionButton={{
                 label: "View Course",
                 action: `/dashboard/courses/${course._id}`,

@@ -1,14 +1,12 @@
 import mongoose from "mongoose";
 import { Course } from "../models/Course";
 import { Material } from "../models/Material";
-import dotenv from "dotenv";
-
-dotenv.config();
+import { getMongoUri } from "./mongoUri";
 
 async function updateCourseSchema() {
   try {
     // Connect to MongoDB
-    await mongoose.connect(process.env.MONGODB_URI as string);
+    await mongoose.connect(getMongoUri());
     console.log("Connected to MongoDB");
 
     // 1. Add courseCode field if missing

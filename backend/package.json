@@ -4,13 +4,14 @@
   "description": "",
   "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "echo \"Use root npm run test:e2e / test:load / test:lighthouse\" && exit 0",
     "dev": "npx nodemon src/app.ts",
     "start": "node dist/app.js",
     "build": "tsc",
     "create-admin": "ts-node src/utils/createAdmin.ts",
     "seed-db": "ts-node src/utils/seedDatabase.ts",
     "clear-db": "ts-node src/utils/clearDatabase.ts",
+    "prepare-test-db": "ts-node src/utils/prepareTestDb.ts",
     "assign-students": "ts-node src/utils/assignStudentsToCourses.ts",
     "update-schema": "ts-node src/utils/updateCourseSchema.ts"
   },
@@ -18,16 +19,21 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@apollo/server": "^5.5.2",
+    "@as-integrations/express4": "^1.1.2",
     "bcrypt": "^5.1.1",
     "cors": "^2.8.5",
+    "dataloader": "^2.2.3",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
+    "graphql": "^16.15.0",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.10.1",
     "multer": "^1.4.5-lts.1"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",
+    "@types/cors": "^2.8.19",
     "@types/express": "^5.0.0",
     "@types/jsonwebtoken": "^9.0.9",
     "@types/multer": "^1.4.12",

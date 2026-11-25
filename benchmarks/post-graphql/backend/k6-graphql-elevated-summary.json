@@ -1,0 +1,28 @@
+{
+  "profile": "graphql-elevated",
+  "generatedAt": "2026-11-25T08:34:30.000Z",
+  "baseUrl": "http://127.0.0.1:4000",
+  "http_reqs": 4468,
+  "failed_requests": 0,
+  "error_rate": 0,
+  "checks": {
+    "pass": 7819,
+    "fail": 0
+  },
+  "vus_max": 25,
+  "status_counts": {
+    "200": 4468
+  },
+  "http_req_duration_ms": {
+    "avg": 19.03,
+    "p50": 2.15,
+    "p95": 70.88,
+    "max": 104
+  },
+  "graphql_duration_ms": {
+    "avg": 1.96,
+    "p50": 1.71,
+    "p95": 3.41,
+    "max": 10.18
+  }
+}

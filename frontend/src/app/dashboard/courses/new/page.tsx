@@ -4,23 +4,21 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 import Link from "next/link";
-import { courseService } from "@/services/course.service";
-import { useApiError } from "@/hooks/useApiError";
 import { toast } from "react-toastify";
+import { useMutation } from "@apollo/client/react";
+import { CREATE_COURSE } from "@/graphql/courses";
 
 export default function CreateCoursePage() {
   const router = useRouter();
   const { user } = useAuth();
-  const { error, handleError, clearError } = useApiError();
   const [formData, setFormData] = useState({
     title: "",
     courseCode: "",
     description: "",
-    lecturer: user!._id,
   });
-  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [createCourse, { loading }] = useMutation(CREATE_COURSE);
 
-  // Check if user is a lecturer
   if (user?.role !== "lecturer") {
     router.push("/dashboard");
     return null;
@@ -37,20 +35,24 @@ export default function CreateCoursePage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    clearError();
-    setLoading(true);
+    setError("");
 
     try {
-      // Call the createCourse service
-      const response = await courseService.createCourse(formData);
-      console.log("response", response);
+      await createCourse({
+        variables: {
+          input: {
+            title: formData.title,
+            courseCode: formData.courseCode,
+            description: formData.description,
+          },
+        },
+      });
       toast.success("Course created successfully!");
-
       router.push("/dashboard");
-    } catch (err) {
-      handleError(err);
-    } finally {
-      setLoading(false);
+    } catch (err: unknown) {
+      const message =
+        err instanceof Error ? err.message : "Failed to create course";
+      setError(message);
     }
   };
 

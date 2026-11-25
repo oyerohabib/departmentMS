@@ -1,0 +1,38 @@
+node_modules/
+.DS_Store
+
+# Env
+.env
+.env.local
+.env.*.local
+backend/.env
+frontend/.env
+frontend/.env.local
+
+# Build / tooling
+frontend/.next/
+frontend/out/
+backend/dist/
+*.tsbuildinfo
+
+# Playwright / Lighthouse / k6 heavy artifacts
+e2e/.auth/
+test-results/
+playwright-report/
+benchmarks/baseline/functional/playwright-report/
+benchmarks/baseline/frontend/*.report.html
+benchmarks/baseline/frontend/*.report.json
+benchmarks/baseline/frontend/lhci/
+benchmarks/post-graphql/functional/playwright-report/
+benchmarks/post-graphql/frontend/*.report.html
+benchmarks/post-graphql/frontend/*.report.json
+# k6 --out json dumps every metric point (multi‑MB); keep *-summary.json only
+benchmarks/baseline/backend/k6-smoke.json
+benchmarks/baseline/backend/k6-normal.json
+benchmarks/baseline/backend/k6-elevated.json
+benchmarks/post-graphql/backend/k6-*.json
+!benchmarks/post-graphql/backend/*-summary.json
+benchmarks/**/*.mp4
+benchmarks/**/trace.zip
+backend/uploads/*
+!backend/uploads/.gitkeep

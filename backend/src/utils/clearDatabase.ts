@@ -1,15 +1,14 @@
 import mongoose from "mongoose";
-import dotenv from "dotenv";
 import { User } from "../models/User";
 import { Course } from "../models/Course";
 import { Material } from "../models/Material";
-
-dotenv.config();
+import { getMongoUri } from "./mongoUri";
 
 const clearDatabase = async () => {
   try {
+    const uri = getMongoUri();
     console.log("Connecting to MongoDB...");
-    await mongoose.connect(process.env.MONGODB_URI as string);
+    await mongoose.connect(uri);
     console.log("Connected to MongoDB");
 
     console.log("Clearing Users...");
@@ -27,6 +26,7 @@ const clearDatabase = async () => {
     console.log("Database cleared successfully.");
   } catch (error) {
     console.error("Error clearing database:", error);
+    process.exitCode = 1;
   } finally {
     await mongoose.disconnect();
     console.log("Disconnected from MongoDB");
